@@ -205,7 +205,7 @@ aviation_data_cleaned['Year'] = aviation_data_cleaned['Event.Date'].dt.year
 accidents_per_year = aviation_data_cleaned['Year'].value_counts().sort_index()
 
 # Visualize accidents over time
-![Project Logo](visuals/accidents per year.png)
+![Project Logo](visuals/accidents_per_year.png)
 
 
 # Analyze accidents by location (Country)
@@ -218,7 +218,7 @@ print(accidents_by_country.head(10))
 # Visualize accidents by location
 
 
-![Project Logo](visuals/top 10 countries with most accidents.png)
+![Project Logo](visuals/top_10_countries_with_most_accidents.png)
 # Trends in accidents over time help identify periods of higher risk.
 # Locations with high accident counts highlight regions needing more attention.
 
@@ -240,7 +240,7 @@ injury_columns = ['Total.Fatal.Injuries', 'Total.Serious.Injuries', 'Total.Minor
 
 # Grouping by flight phase and summing the injuries
 
-![Project Logo](visuals/injury severity by flight phase.png)
+![Project Logo](visuals/injury_severity_by_flight_phase.png)
 
 ## Trends by Aircraft Type 
 
@@ -262,7 +262,7 @@ print(accidents_by_aircraft.head(10))
 
 # Visualize the top 10 aircraft manufacturers
 
-![Project Logo](visuals/top 10 aircraft manufacturers with most accidents.png)
+![Project Logo](visuals/top_10_aircraft_manufacturers_with_most_accidents.png)
 
 ## Weather Conditions and Accident Severity
 
@@ -272,7 +272,7 @@ import numpy as np
 # Analyze accidents by weather condition
 weather_severity = aviation_data_cleaned.groupby('Weather.Condition')[injury_columns].sum()
 
-![Project Logo](visuals/severity of injuries by weather condition.png)
+![Project Logo](visuals/severity_of_injuries_by_weather_condition.png)
 ## Accident Purpose 
 
 import matplotlib.pyplot as plt
@@ -281,7 +281,7 @@ import numpy as np
 # Analyze accidents by purpose of flight
 purpose_severity = aviation_data_cleaned.groupby('Purpose.of.flight')[injury_columns].sum()
 
-![Project Logo](visuals/severity of injuries by purpose of flight.png)
+![Project Logo](visuals/severity_of_injuries_by_purpose_of_flight.png)
 ## Observation from Analysis
 
 1. Accident Trends Over Time
