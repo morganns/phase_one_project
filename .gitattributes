@@ -1,0 +1,4 @@
+# Normalize line endings for text files
+*.md text eol=lf
+*.ipynb text eol=lf
+*.txt text eol=lf
