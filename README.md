@@ -205,16 +205,6 @@ aviation_data_cleaned['Year'] = aviation_data_cleaned['Event.Date'].dt.year
 accidents_per_year = aviation_data_cleaned['Year'].value_counts().sort_index()
 
 # Visualize accidents over time
-import matplotlib.pyplot as plt
-
-plt.figure(figsize=(12, 6))
-plt.plot(accidents_per_year.index, accidents_per_year.values, marker='o')
-plt.title('Accidents Per Year (1962-2023)', fontsize=14)
-plt.xlabel('Year', fontsize=12)
-plt.ylabel('Number of Accidents', fontsize=12)
-plt.grid(True)
-plt.show()
-
 ![Project Logo](visuals/accidents per year.png)
 
 
@@ -226,12 +216,7 @@ print("Top 10 Countries with Most Accidents:")
 print(accidents_by_country.head(10))
 
 # Visualize accidents by location
-plt.figure(figsize=(12, 6))
-accidents_by_country.head(10).plot(kind='bar', color='skyblue')
-plt.title('Top 10 Countries with Most Accidents', fontsize=14)
-plt.xlabel('Country', fontsize=12)
-plt.ylabel('Number of Accidents', fontsize=12)
-plt.show()
+
 
 ![Project Logo](visuals/top 10 countries with most accidents.png)
 # Trends in accidents over time help identify periods of higher risk.
@@ -254,29 +239,6 @@ import numpy as np
 injury_columns = ['Total.Fatal.Injuries', 'Total.Serious.Injuries', 'Total.Minor.Injuries']
 
 # Grouping by flight phase and summing the injuries
-severity_by_phase = aviation_data_cleaned.groupby('Broad.phase.of.flight')[injury_columns].sum()
-
-# Setting positions for grouped bar chart
-x = np.arange(len(severity_by_phase))  # X-axis positions for groups
-width = 0.25  # Width of each bar
-
-fig, ax = plt.subplots(figsize=(10, 6))
-
-# Plot each injury type as separate bars
-ax.bar(x - width, severity_by_phase['Total.Fatal.Injuries'], width, label='Fatal Injuries', color='purple')
-ax.bar(x, severity_by_phase['Total.Serious.Injuries'], width, label='Serious Injuries', color='teal')
-ax.bar(x + width, severity_by_phase['Total.Minor.Injuries'], width, label='Minor Injuries', color='gold')
-
-# Adding labels, title, and legend
-ax.set_xlabel('Flight Phase', fontsize=12)
-ax.set_ylabel('Number of Injuries', fontsize=12)
-ax.set_title('Severity Of Injuries By Flight Phase', fontsize=16, pad=15)
-ax.set_xticks(x)
-ax.set_xticklabels(severity_by_phase.index, rotation=45)
-ax.legend(title='Injury Type', fontsize=10)
-plt.tight_layout()
-
-plt.show()
 
 ![Project Logo](visuals/injury severity by flight phase.png)
 
@@ -299,13 +261,6 @@ print("Top 10 Aircraft Manufacturers with Most Accidents:")
 print(accidents_by_aircraft.head(10))
 
 # Visualize the top 10 aircraft manufacturers
-plt.figure(figsize=(10, 5))  # Match figure size
-accidents_by_aircraft.head(10).plot(kind='bar', color='orange')  # Match color
-plt.title('Top 10 Aircraft Manufacturers with Most Accidents (Standardized)', fontsize=14)
-plt.xlabel('Aircraft Manufacturer', fontsize=12)
-plt.ylabel('Number of Accidents', fontsize=12)
-plt.xticks(rotation=45, ha='right')  # Match label rotation and alignment
-plt.grid(axis='y', linestyle='--', alpha=0.7)  #
 
 ![Project Logo](visuals/top 10 aircraft manufacturers with most accidents.png)
 
@@ -317,28 +272,6 @@ import numpy as np
 # Analyze accidents by weather condition
 weather_severity = aviation_data_cleaned.groupby('Weather.Condition')[injury_columns].sum()
 
-# Setting positions for grouped bar chart
-x = np.arange(len(weather_severity))  # X-axis positions for groups
-width = 0.25  # Width of each bar
-
-fig, ax = plt.subplots(figsize=(12, 6))
-
-# Plot each injury type as separate bars
-ax.bar(x - width, weather_severity['Total.Fatal.Injuries'], width, label='Fatal Injuries', color='purple')
-ax.bar(x, weather_severity['Total.Serious.Injuries'], width, label='Serious Injuries', color='teal')
-ax.bar(x + width, weather_severity['Total.Minor.Injuries'], width, label='Minor Injuries', color='gold')
-
-# Adding labels, title, and legend
-ax.set_xlabel('Weather Condition', fontsize=12)
-ax.set_ylabel('Number of Injuries', fontsize=12)
-ax.set_title('Severity Of Injuries By Weather Condition', fontsize=16, pad=15)
-ax.set_xticks(x)
-ax.set_xticklabels(weather_severity.index, rotation=45)
-ax.legend(title='Injury Type', fontsize=10)
-plt.tight_layout()
-
-plt.show()
-
 ![Project Logo](visuals/severity of injuries by weather condition.png)
 ## Accident Purpose 
 
@@ -347,28 +280,6 @@ import numpy as np
 
 # Analyze accidents by purpose of flight
 purpose_severity = aviation_data_cleaned.groupby('Purpose.of.flight')[injury_columns].sum()
-
-# Setting positions for grouped bar chart
-x = np.arange(len(purpose_severity))  # X-axis positions for groups
-width = 0.25  # Width of each bar
-
-fig, ax = plt.subplots(figsize=(12, 6))
-
-# Plot each injury type as separate bars
-ax.bar(x - width, purpose_severity['Total.Fatal.Injuries'], width, label='Fatal Injuries', color='purple')
-ax.bar(x, purpose_severity['Total.Serious.Injuries'], width, label='Serious Injuries', color='teal')
-ax.bar(x + width, purpose_severity['Total.Minor.Injuries'], width, label='Minor Injuries', color='gold')
-
-# Adding labels, title, and legend
-ax.set_xlabel('Purpose of Flight', fontsize=12)
-ax.set_ylabel('Number of Injuries', fontsize=12)
-ax.set_title('Severity Of Injuries By Purpose Of Flight', fontsize=16, pad=15)
-ax.set_xticks(x)
-ax.set_xticklabels(purpose_severity.index, rotation=45)
-ax.legend(title='Injury Type', fontsize=10)
-plt.tight_layout()
-
-plt.show()
 
 ![Project Logo](visuals/severity of injuries by purpose of flight.png)
 ## Observation from Analysis
