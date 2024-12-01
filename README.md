@@ -176,18 +176,18 @@ aviation_data_cleaned = aviation_data.drop(columns=columns_to_drop, errors='igno
 
 Imputing Missing Values
 
-# Dropping high-missing-value and irrelevant columns
+### Dropping high-missing-value and irrelevant columns
 columns_to_drop = ['Latitude', 'Longitude', 'Airport.Code', 'Airport.Name', 'Report.Status', 'Publication.Date']
 aviation_data_cleaned = aviation_data_cleaned.drop(columns=columns_to_drop, errors='ignore')
 
 # Imputing remaining missing values
-# For low to moderate missing columns
+## For low to moderate missing columns
 low_missing_columns = ['Make', 'Model', 'Amateur.Built', 'Location', 'Country',
                        'Registration.Number', 'Injury.Severity', 'Number.of.Engines', 'Engine.Type']
 for col in low_missing_columns:
     aviation_data_cleaned[col] = aviation_data_cleaned[col].fillna('Unknown')
 
-# Verify the cleaning process
+## Verify the cleaning process
 print("Remaining Missing Values After Final Cleaning:")
 print(aviation_data_cleaned.isnull().sum())
 
@@ -197,30 +197,30 @@ print(aviation_data_cleaned.isnull().sum())
 This will help us in identifying the trends in accident frequency over time and by location,helping stakeholders understand patterns and potential risk factors
 
 # Extract Year from Event.Date
-# Ensuring Event.Date is a datetime object
+## Ensuring Event.Date is a datetime object
 aviation_data_cleaned['Event.Date'] = pd.to_datetime(aviation_data_cleaned['Event.Date'], errors='coerce')
 aviation_data_cleaned['Year'] = aviation_data_cleaned['Event.Date'].dt.year
 
-# Count accidents per year
+## Count accidents per year
 accidents_per_year = aviation_data_cleaned['Year'].value_counts().sort_index()
 
-# Visualize accidents over time
+## Visualize accidents over time
 ![Project Logo](visuals/accidents_per_year.png)
 
 
-# Analyze accidents by location (Country)
+## Analyze accidents by location (Country)
 accidents_by_country = aviation_data_cleaned['Country'].value_counts()
 
-# Display the top 10 countries with the most accidents
+## Display the top 10 countries with the most accidents
 print("Top 10 Countries with Most Accidents:")
 print(accidents_by_country.head(10))
 
-# Visualize accidents by location
+## Visualize accidents by location
 
 
 ![Project Logo](visuals/top_10_countries_with_most_accidents.png)
 # Trends in accidents over time help identify periods of higher risk.
-# Locations with high accident counts highlight regions needing more attention.
+## Locations with high accident counts highlight regions needing more attention.
 
 We will be looking at;
 
@@ -235,10 +235,10 @@ The goal is to understand the distribution of injury severity,helping stakeholde
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Selecting injury-related columns
+## Selecting injury-related columns
 injury_columns = ['Total.Fatal.Injuries', 'Total.Serious.Injuries', 'Total.Minor.Injuries']
 
-# Grouping by flight phase and summing the injuries
+## Grouping by flight phase and summing the injuries
 
 ![Project Logo](visuals/injury_severity_by_flight_phase.png)
 
@@ -256,11 +256,11 @@ aviation_data_cleaned['Make'] = aviation_data_cleaned['Make'].replace({
 # Count accidents by aircraft make
 accidents_by_aircraft = aviation_data_cleaned['Make'].value_counts()
 
-# Display the top 10 aircraft manufacturers with the most accidents
+## Display the top 10 aircraft manufacturers with the most accidents
 print("Top 10 Aircraft Manufacturers with Most Accidents:")
 print(accidents_by_aircraft.head(10))
 
-# Visualize the top 10 aircraft manufacturers
+## Visualize the top 10 aircraft manufacturers
 
 ![Project Logo](visuals/top_10_aircraft_manufacturers_with_most_accidents.png)
 
@@ -269,7 +269,7 @@ print(accidents_by_aircraft.head(10))
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Analyze accidents by weather condition
+## Analyze accidents by weather condition
 weather_severity = aviation_data_cleaned.groupby('Weather.Condition')[injury_columns].sum()
 
 ![Project Logo](visuals/severity_of_injuries_by_weather_condition.png)
@@ -278,7 +278,7 @@ weather_severity = aviation_data_cleaned.groupby('Weather.Condition')[injury_col
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Analyze accidents by purpose of flight
+## Analyze accidents by purpose of flight
 purpose_severity = aviation_data_cleaned.groupby('Purpose.of.flight')[injury_columns].sum()
 
 ![Project Logo](visuals/severity_of_injuries_by_purpose_of_flight.png)
