@@ -53,7 +53,7 @@ c. Operational Context: Flight purpose, weather conditions, and flight phases.
 d. Injuries: Counts of fatal, serious, and minor injuries.
 
 
-## Exploration of Aviation Dataset
+# Exploratory Data Analysis
 
 My goal here is to understand the structure of the dataset. This includes columns, data types, and missing values. 
 Also to identify any immediate data quality issues eg inconsistent types, missing values e.t.c
@@ -62,18 +62,17 @@ Also to identify any immediate data quality issues eg inconsistent types, missin
 
 I will import pandas library as below;
 
-import pandas as pd
+
 
 ## Loading the aviation dataset
 
 After importing the pandas library, my next step is now to load aviation data as shown.
 
-aviation_data = pd.read_csv('AviationData.csv')
-aviation_data
+
 
 ## Let us check the Dataset shape(rows and columns)
 
-print("Dataset Shape:",aviation_data.shape)
+
 
 The dataset has 90348 rows and 31 columns.
 
@@ -81,23 +80,23 @@ The dataset has 90348 rows and 31 columns.
 
 This will help me to understand the details of our first 5 rows with all the 31 columns.
 
-aviation_data.head()
+
 
 ## Checking for the dataset information, column names and data types
 
-aviation_data.info()
+
 
 The dataset has a entries which varies across. Also we have object and float64 data types 
 
-aviation_data.dtypes
+
 
 ## Checking for missing values
 
-aviation_data.isnull().sum()
+
 
 # Checking for summary statistcics 
 
-aviation_data.describe()
+
 
 # Points to Note
 
@@ -142,85 +141,50 @@ Manufacturer and regional analysis)***
 
 ### Columns with missing values 
 
-missing_values = aviation_data.isnull().sum()
-missing_values
+
 
 ### Percentage of Missing Values for each column 
 
-missing_percentage = (missing_values / len(aviation_data)) * 100
-missing_percentage
+
 
 Combining the Results into a Dataframe for Readability
 
-missing_data_summary = pd.DataFrame({
-  "Missing Values": missing_values,  
-  "Percentage Missing": missing_percentage
-}).sort_values(by = "Percentage Missing",ascending = False)
-missing_data_summary
+
 
 Columns with more than 50%
 
-critical_missing_columns = missing_data_summary[missing_data_summary["Percentage Missing"] > 50]
-critical_missing_columns
+
 
 These missing values can skew analysis or cause errors in calculations.
 
 ## Addressing the Missing Values(Imputation and dropping columns)
 
-columns_to_drop = ['Latitude', 'Longitude', 'Airport.Code', 'Airport.Name', 'Aircraft.Category',
-                   'FAR.Description', 'Schedule', 'Air.carrier']
+
 
 Drop Columns with more that 50% missing values
 
-aviation_data_cleaned = aviation_data.drop(columns=columns_to_drop, errors='ignore')
+
 
 Imputing Missing Values
 
-### Dropping high-missing-value and irrelevant columns
-columns_to_drop = ['Latitude', 'Longitude', 'Airport.Code', 'Airport.Name', 'Report.Status', 'Publication.Date']
-aviation_data_cleaned = aviation_data_cleaned.drop(columns=columns_to_drop, errors='ignore')
-
+# Dropping high-missing-value and irrelevant columns
 # Imputing remaining missing values
-## For low to moderate missing columns
-low_missing_columns = ['Make', 'Model', 'Amateur.Built', 'Location', 'Country',
-                       'Registration.Number', 'Injury.Severity', 'Number.of.Engines', 'Engine.Type']
-for col in low_missing_columns:
-    aviation_data_cleaned[col] = aviation_data_cleaned[col].fillna('Unknown')
-
-## Verify the cleaning process
-print("Remaining Missing Values After Final Cleaning:")
-print(aviation_data_cleaned.isnull().sum())
-
+# For low to moderate missing columns
+# Verify the cleaning process
 
 ## Analyzing Accident Frequency
 
 This will help us in identifying the trends in accident frequency over time and by location,helping stakeholders understand patterns and potential risk factors
 
 # Extract Year from Event.Date
-## Ensuring Event.Date is a datetime object
-aviation_data_cleaned['Event.Date'] = pd.to_datetime(aviation_data_cleaned['Event.Date'], errors='coerce')
-aviation_data_cleaned['Year'] = aviation_data_cleaned['Event.Date'].dt.year
-
-## Count accidents per year
-accidents_per_year = aviation_data_cleaned['Year'].value_counts().sort_index()
-
-## Visualize accidents over time
-![Project Logo](visuals/accidents_per_year.png)
-
-
-## Analyze accidents by location (Country)
-accidents_by_country = aviation_data_cleaned['Country'].value_counts()
-
-## Display the top 10 countries with the most accidents
-print("Top 10 Countries with Most Accidents:")
-print(accidents_by_country.head(10))
-
-## Visualize accidents by location
-
-
-![Project Logo](visuals/top_10_countries_with_most_accidents.png)
+# Ensuring Event.Date is a datetime object
+# Count accidents per year
+# Visualize accidents over time
+# Analyze accidents by location (Country)
+# Display the top 10 countries with the most accidents
+# Visualize accidents by location
 # Trends in accidents over time help identify periods of higher risk.
-## Locations with high accident counts highlight regions needing more attention.
+# Locations with high accident counts highlight regions needing more attention.
 
 We will be looking at;
 
@@ -232,56 +196,35 @@ We will be looking at;
 
 The goal is to understand the distribution of injury severity,helping stakeholders assess the impact of different accidents. I'll be keen to look at injury severity(which injury type(fatal,serious,minor) is most common, are there outliers and flight phases(phases with highest number injuries and any operational patterns contributing to risks ).  
 
-import matplotlib.pyplot as plt
-import numpy as np
-
-## Selecting injury-related columns
-injury_columns = ['Total.Fatal.Injuries', 'Total.Serious.Injuries', 'Total.Minor.Injuries']
-
-## Grouping by flight phase and summing the injuries
-
-![Project Logo](visuals/injury_severity_by_flight_phase.png)
+# Selecting injury-related columns
+# Grouping by flight phase and summing the injuries
+# Setting positions for grouped bar chart
+# Plot each injury type as separate bars
+# Adding labels, title, and legend
 
 ## Trends by Aircraft Type 
 
 # Normalize the 'Make' column: Convert to uppercase to handle case sensitivity
-aviation_data_cleaned['Make'] = aviation_data_cleaned['Make'].str.upper()
-
 # Correct common inconsistencies (e.g., misspellings)
-aviation_data_cleaned['Make'] = aviation_data_cleaned['Make'].replace({
-    "BOIENG": "BOEING",
     # Add other corrections here if necessary
-})
-
 # Count accidents by aircraft make
-accidents_by_aircraft = aviation_data_cleaned['Make'].value_counts()
-
-## Display the top 10 aircraft manufacturers with the most accidents
-print("Top 10 Aircraft Manufacturers with Most Accidents:")
-print(accidents_by_aircraft.head(10))
-
-## Visualize the top 10 aircraft manufacturers
-
-![Project Logo](visuals/top_10_aircraft_manufacturers_with_most_accidents.png)
+# Display the top 10 aircraft manufacturers with the most accidents
+# Visualize the top 10 aircraft manufacturers
 
 ## Weather Conditions and Accident Severity
 
-import matplotlib.pyplot as plt
-import numpy as np
+# Analyze accidents by weather condition
+# Setting positions for grouped bar chart
+# Plot each injury type as separate bars
+# Adding labels, title, and legend
 
-## Analyze accidents by weather condition
-weather_severity = aviation_data_cleaned.groupby('Weather.Condition')[injury_columns].sum()
-
-![Project Logo](visuals/severity_of_injuries_by_weather_condition.png)
 ## Accident Purpose 
 
-import matplotlib.pyplot as plt
-import numpy as np
+# Analyze accidents by purpose of flight
+# Setting positions for grouped bar chart
+# Plot each injury type as separate bars
+# Adding labels, title, and legend
 
-## Analyze accidents by purpose of flight
-purpose_severity = aviation_data_cleaned.groupby('Purpose.of.flight')[injury_columns].sum()
-
-![Project Logo](visuals/severity_of_injuries_by_purpose_of_flight.png)
 ## Observation from Analysis
 
 1. Accident Trends Over Time
