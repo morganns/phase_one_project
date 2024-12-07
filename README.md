@@ -1,166 +1,89 @@
+# Aircraft Risk Analysis
 
-==========================
-Please fill out:
-* Student name: Morgan Abukuse Amunga
-* Student pace: full time - Remote
-* Scheduled project review date/time:
-* Instructor name: Lucille Kaleha
-* Blog post URL:
-==================
-This project focuses on analyzing aviation accident data from 1962 to 2023, sourced from the National Transportation Safety Board (NTSB). The primary goal is to identify low-risk aircraft and provide actionable insights to improve aviation safety and operational decision-making for a business venturing into the aviation industry.
-========================
----------------
-***1. Aviation Division Head***
-The primary stakeholder responsible for operational and strategic decisions in the aviation business
-***2. Business Executive***
-Require actionable insights for aircraft acquisition and safety strategies.
-***3. Operational Teams***
-Interested in insights to enhance safety protocols and mitigate risks during operations.
--------------------------
+## Overview
+This project analyzes aviation accident data from 1962 to 2023 to identify low-risk aircraft and provide actionable insights. Using data from the National Transportation Safety Board (NTSB), it supports strategic decision-making by uncovering trends, risks, and safety recommendations for aviation operations.
+
+## Table of Contents
+1. [Overview](#overview)
+2. [Business Understanding](#business-understanding)
+3. [Data Understanding](#data-understanding)
+4. [Key Findings](#key-findings)
+5. [Recommendations](#recommendations)
+6. [Repository Structure](#repository-structure)
+7. [Installation/Setup](#installationsetup)
+8. [Usage Instructions](#usage-instructions)
+9. [Contact Information](#contact-information)
+
+## Business Understanding
+
+### Stakeholders
+- **Aviation Division Head**: Strategic decision-making for aviation operations.
+- **Business Executives**: Insights for aircraft acquisition and risk mitigation.
+- **Operational Teams**: Guidance for enhancing safety protocols.
+
+### Key Business Questions
 1. Which aircraft types are associated with the lowest risks based on historical accident data?
 2. What operational factors (e.g., flight phases, weather conditions) significantly impact accident severity?
-3. Which regions and manufacturers require targeted safety interventions to reduce accident risks?
-=================================
------------------
-The data comes from the National Transportation Safety Board (NTSB) and includes civil aviation accidents and incidents from 1962 to 2023.
-It has the following Key features;
-a. Accident Details: Date, location, and severity of accidents.
-b. Aircraft Specifications: Manufacturer, model, and type.
-c. Operational Context: Flight purpose, weather conditions, and flight phases.
-d. Injuries: Counts of fatal, serious, and minor injuries.
-===========================
-My goal here is to understand the structure of the dataset. This includes columns, data types, and missing values.
-Also to identify any immediate data quality issues eg inconsistent types, missing values e.t.c
-----------------------------------
-I will import pandas library as below;
--------------------------------
-After importing the pandas library, my next step is now to load aviation data as shown.
----------------------------------------------------
-The dataset has 90348 rows and 31 columns.
---------------------------------------
-This will help me to understand the details of our first 5 rows with all the 31 columns.
---------------------------------------------------------------------
-The dataset has a entries which varies across. Also we have object and float64 data types
-------------------------------
-==================================
-================
-Schedule, Air.carrier, Aircraft.Category, FAR.Description, and Longitude have the highest number of missing values while
-Investigation.Type does not have a missing value.
-a. Longitude and Latitude should be numeric(float64)
-b. Event.Date and Publication.Date should be datetime
-c. Number of engines and injuries are integers like column could be integers after imputing missing values.
-d. Categorical data stored as objects could be converted to category for better memory optimization and performance.
-a. Accident Frequency. (Say how any accidents occurred annually or by location(State or country), identify the trends of
-accident occurrence over time)
-b. Injury severity.(Distribution of Total.Fatal.Injuries, total serious injuries and total minor injuries)
-c. Aircraft damage. Categories of aircraft damage and relationship between damage type and injury severity
-I will use this point for;
-1.Risk Evaluation. Say which aircraft types,flight phases or conditions lead to higher risks to guide  in decision
-making.
-2.For business recommendations. Will help the stakeholders focus on low risk aircraft,regions and conditions.
-===============================
-I will drop some columns ***(High-missing-value columns like Latitude, Longitude, Airport.Code, etc.)***, perform imputation ***(Filled missing injury values with 0 and categorical values with "Unknown")***, standardize(ensure consistency in key features) and analyse the dimensions ***(Accident trends over time.
-Severity of injuries by flight phase, weather condition, and aircraft type.
-Manufacturer and regional analysis)***
-Combining the Results into a Dataframe for Readability
-Columns with more than 50%
-These missing values can skew analysis or cause errors in calculations.
------------------------------------------------------------------
-Drop Columns with more that 50% missing values
-Imputing Missing Values
-====================================================
-===================================
-=====================================
-=============================
--------------------------------
-This will help us in identifying the trends in accident frequency over time and by location,helping stakeholders understand patterns and potential risk factors
-==============================
-==========================================
-==========================
-===============================
-=========================================
-======================================================
-=================================
-=====================================================================
-===============================================================================
-We will be looking at;
-1.Trends over time to deterine if accidents are increasing or decreasing and if there are any spikes or anomalies during specific years.
-2.High risk locations. Which countries reported the most accidents and any patterns based on geography or operational conditions.
------------------------------------------
-The goal is to understand the distribution of injury severity,helping stakeholders assess the impact of different accidents. I'll be keen to look at injury severity(which injury type(fatal,serious,minor) is most common, are there outliers and flight phases(phases with highest number injuries and any operational patterns contributing to risks ).
-==================================
-===================================================
-=========================================
-========================================
-==================================
---------------------------
-==============================================================================
-=====================================================
-=========================================
-==================================
-===================================================================
-=============================================
--------------------------------------------
-========================================
-=========================================
-========================================
-==================================
--------------------
-========================================
-=========================================
-========================================
-==================================
-----------------------------
-1. Accident Trends Over Time
-Accidents have fluctuated over the decades, with spikes observed in earlier years.
-The number of accidents appears to decrease in recent years, reflecting improvements in aviation safety, technology, and        regulations.
-2. Severity by Flight Phase
-Cruise Phase accounts for the highest number of fatalities and serious injuries. Despite fewer occurrences
-compared to takeoff or landing, cruise-phase accidents tend to be more catastrophic.
-Takeoff has significant injury counts across all levels, including fatalities, highlighting the risks of this critical
-phase.
-Maneuvering also records a high number of fatalities, indicating challenges during non-standard flight maneuvers.
-Prioritizing safety enhancements during the cruise, takeoff, and maneuvering phases is crucial.
-3. Severity by Weather Condition
-IMC (Instrument Meteorological Conditions): Accidents during adverse weather result in more severe injuries, with
-fatalities and minor injuries.
-VMC (Visual Meteorological Conditions): While VMC conditions account for more total injuries, this is likely due to the
-higher volume of flights under these conditions.
-Weather-related risks can be mitigated through enhanced pilot training and advanced avionics for flying in IMC conditions.
-4. Severity by Purpose of Flight
-Personal Flights: These account for a majority of severe injuries and fatalities, reflecting the variability in pilot
-experience and regulatory oversight in this sector.
-Commercial Flights: Though less frequent, accidents in commercial aviation can result in significant injuries due to higher      passenger loads.
-Targeting safety in personal flights offers the greatest potential for reducing aviation accidents.
-5. Top 10 Aircraft Manufacturers with Most Accidents
-Cessna and Piper dominate accident records. These manufacturers are prevalent in personal and recreational aviation.
-Commercial Manufacturers: Boeing and Airbus report fewer accidents, reflecting their advanced safety features and
-operational standards.
-Selecting modern commercial aircraft with proven safety records is key to reducing risk.
-6. Top 10 Countries with Most Accidents
-The United States leads in accident counts, which is expected due to its large aviation sector and comprehensive reporting
-systems.
-Other countries with high accident counts may reflect regional safety challenges or reporting inconsistencies.
-Focusing safety efforts in high-accident regions can yield significant impact.
-=================
-Focus on acquiring modern commercial aircraft from manufacturers with a strong safety track record (e.g., Boeing, Airbus) while avoiding older or recreational aircraft models from high-risk manufacturers (e.g., Cessna, Piper) unless supported by enhanced safety measures.
-Implement targeted training and automated safety systems for high-risk flight phases, particularly cruise, takeoff, and maneuvering.
-Develop stringent protocols and pilot training programs for operating in adverse weather conditions (IMC), supported by advanced avionics systems such as predictive weather radar and real-time navigation aids.
-Invest in initiatives to enhance safety in personal aviation, including;
-a. Improved training for recreational pilots.
-b. Stricter maintenance standards for personal and recreational aircraft.
-c. Educational programs on weather and operational safety for amateur pilots.
-Focus safety improvement efforts in regions with the highest accident counts, particularly in the United States and other countries with notable risks.
-Equip aircraft with modern safety technologies, including:
-Automated emergency landing systems.
-Enhanced collision avoidance systems.
-Real-time engine and system monitoring tools.
-============
----------------------
-Accidents have generally declined over the years due to technological advancements and safety improvements.
------------------------
-a. Cruise and takeoff phases are associated with severe injuries and fatalities.
-b. IMC conditions pose higher risks per flight, while VMC conditions account for more injuries due to flight volume.
----------------------------
-a. Cessna (27,149 accidents) and Piper (14,870 accidents) dominate accident counts, emphasizing risks in personal aviation.
-b. Manufacturers like Boeing and Airbus exhibit lower accident rates, reflecting advanced safety features and operational standards.
+3. Which regions and manufacturers require targeted safety interventions?
+
+## Data Understanding
+
+### Data Source
+The dataset is sourced from the National Transportation Safety Board (NTSB) and includes aviation accidents and incidents from 1962 to 2023.
+
+### Key Features
+- **Accident Details**: Date, location, and severity.
+- **Aircraft Specifications**: Manufacturer, model, and type.
+- **Operational Context**: Flight purpose, weather conditions, and flight phases.
+- **Injuries**: Counts of fatal, serious, and minor injuries.
+
+### Challenges
+- Missing values in columns like `Latitude`, `Longitude`, and `Airport.Code`.
+- Inconsistent data types that required standardization (e.g., `Make` column).
+
+## Key Findings
+1. **Accident Trends**: Accidents have generally declined over the years, reflecting technological advancements and improved safety standards.
+2. **Flight Phase Risks**:
+   - **Cruise and takeoff phases** are associated with severe injuries and fatalities.
+   - **Maneuvering** also poses significant risks.
+3. **Weather Conditions**:
+   - **IMC conditions** pose higher risks per flight.
+   - **VMC conditions** account for more total injuries due to higher flight volumes.
+4. **Manufacturer Insights**:
+   - **Cessna (27,149 accidents)** and **Piper (14,870 accidents)** dominate accident counts.
+   - **Boeing and Airbus** show lower accident rates due to advanced safety features.
+5. **Regional Insights**:
+   - The **United States** leads in accident counts, reflecting its large aviation sector.
+
+## Recommendations
+1. **Aircraft Selection**: Focus on modern commercial aircraft with strong safety records (e.g., Boeing, Airbus).
+2. **Critical Flight Phases**: Prioritize training and automated systems for cruise, takeoff, and maneuvering.
+3. **Weather Safety**: Enhance pilot training for IMC conditions and equip aircraft with advanced navigation tools.
+4. **Personal Aviation Risks**: Improve training, maintenance, and safety education for recreational pilots.
+5. **Regional Initiatives**: Focus safety improvements in high-accident regions like the U.S.
+6. **Safety Technologies**: Invest in advanced systems like automated landing tools and collision avoidance technologies.
+
+## Repository Structure
+Aircraft_Risk_Analysis/ │ ├── README.md # Overview of the project ├── notebooks/ │ ├── Aircraft_Risk_Analysis_Notebook.ipynb # Final Jupyter Notebook ├── presentation/ │ ├── Aircraft_Risk_Analysis_Final_Recreated_Presentation.pptx # Final Presentation ├── visuals/ │ ├── updated_aircraft_manufacturers_no_standardized.png # Top 10 Aircraft Visualization │ ├── accidents_trends.png # Accident Trends Visualization │ ├── flight_phase_severity.png # Flight Phase Visualization │ ├── weather_severity.png # Weather Conditions Visualization │ ├── countries_accidents.png # Countries with Accidents Visualization ├── data/ │ ├── Aircraft_Risk_Analysis_Cleaned.csv # Cleaned dataset for reproducibility
+
+## Installation/Setup
+To replicate the project:
+1. Ensure Python is installed (version >= 3.8 recommended).
+2. Install necessary libraries:
+   ```bash
+   pip install -r requirements.txt
+3. Download the dataset and place it in the data/ directory.
+
+**Usage Instructions**
+1. Open the Jupyter Notebook:
+   jupyter notebook notebooks/Aircraft_Risk_Analysis_Notebook.ipynb
+2. Follow the steps in the notebook to:
+     Clean and preprocess the data.
+     Perform analysis and generate visualizations.
+3. Use the insights and visualizations to inform decisions.
+
+**Contact Information**
+For questions or feedback, reach out to:
+
+Email: abumorgan@gmail.com
+LinkedIn: https://www.linkedin.com/in/morgan-a-140948124/
